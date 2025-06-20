@@ -2,6 +2,7 @@ import { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from './prisma';
+import nodemailer from 'nodemailer';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -16,10 +17,21 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      async sendVerificationRequest(params) {
-        console.log('Magic link email params:', params);
-        // Default behavior: send the email using nodemailer
-        // NextAuth will handle sending the email if this is not overridden
+      async sendVerificationRequest({ identifier, url, provider, theme }) {
+        try {
+          const transport = nodemailer.createTransport(provider.server);
+          const result = await transport.sendMail({
+            to: identifier,
+            from: provider.from,
+            subject: 'Your sign-in link for PodcastAI',
+            text: `Sign in to PodcastAI using this link: ${url}`,
+            html: `<p>Sign in to PodcastAI using this link: <a href="${url}">${url}</a></p>`
+          });
+          console.log('Magic link sent to:', identifier, 'Result:', result);
+        } catch (error) {
+          console.error('Error sending magic link:', error);
+          throw error;
+        }
       },
     }),
   ],
