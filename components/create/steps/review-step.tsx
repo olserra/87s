@@ -6,14 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
-import { 
-  FileText, 
-  Volume2, 
-  Video, 
-  Clock, 
-  Sparkles, 
+import {
+  FileText,
+  Volume2,
+  Video,
+  Clock,
+  Sparkles,
   CheckCircle,
-  Loader2 
+  Loader2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import type { CreatePodcastData } from '@/lib/types';
@@ -27,13 +27,17 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState('');
+  const [generatedVideo, setGeneratedVideo] = useState<string | null>(null);
+  const [videoError, setVideoError] = useState<string | null>(null);
 
   const estimatedDuration = Math.ceil((data.script?.length || 0) / 200); // Rough estimate: 200 chars per minute
 
   const handleGenerate = async () => {
     setIsGenerating(true);
     setGenerationProgress(0);
-    
+    setGeneratedVideo(null);
+    setVideoError(null);
+
     const steps = [
       { name: 'Processing script...', duration: 2000 },
       { name: 'Generating voice audio...', duration: 3000 },
@@ -44,18 +48,18 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
 
     let totalProgress = 0;
     const totalSteps = steps.filter(step => step.duration > 0).length;
-    
+
     for (const step of steps) {
       if (step.duration === 0) continue;
-      
+
       setCurrentStep(step.name);
-      
+
       // Simulate progress for this step
       const stepProgress = 100 / totalSteps;
       const stepDuration = step.duration;
       const progressInterval = 50; // Update every 50ms
       const progressIncrement = stepProgress / (stepDuration / progressInterval);
-      
+
       for (let i = 0; i < stepDuration; i += progressInterval) {
         await new Promise(resolve => setTimeout(resolve, progressInterval));
         totalProgress += progressIncrement;
@@ -63,13 +67,35 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
       }
     }
 
-    setCurrentStep('Complete!');
-    setGenerationProgress(100);
-    
-    setTimeout(() => {
+    // Call Avatarify microservice if avatarType is not 'none'
+    if (data.avatarType !== 'none') {
+      setCurrentStep('Generating avatar video...');
+      try {
+        // TODO: Replace with real imageUrl and audioUrl from user data or previous steps
+        const imageUrl = data.avatarImageUrl || 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop';
+        const audioUrl = data.audioUrl || 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+        const res = await fetch('/api/avatarify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageUrl, audioUrl }),
+        });
+        if (!res.ok) throw new Error('Failed to generate avatar video');
+        const result = await res.json();
+        setGeneratedVideo(result.video);
+        setCurrentStep('Complete!');
+        setGenerationProgress(100);
+        toast.success('Podcast generated successfully!');
+      } catch (err: any) {
+        setVideoError('Error generating avatar video.');
+        setCurrentStep('Error');
+        setGenerationProgress(100);
+        toast.error('Failed to generate avatar video.');
+      }
+    } else {
+      setCurrentStep('Complete!');
+      setGenerationProgress(100);
       toast.success('Podcast generated successfully!');
-      // In a real app, you would redirect to the podcast view/dashboard
-    }, 500);
+    }
   };
 
   const getAvatarTypeLabel = (type: string) => {
@@ -212,7 +238,7 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
                     <div className="space-y-1">
                       <h4 className="font-medium text-sm">AI Generation</h4>
                       <p className="text-xs text-muted-foreground">
-                        Your podcast will be generated using state-of-the-art AI models 
+                        Your podcast will be generated using state-of-the-art AI models
                         for voice synthesis and avatar creation.
                       </p>
                     </div>
@@ -234,7 +260,7 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
                 <h3 className="font-semibold">Generating Your Podcast</h3>
                 <p className="text-sm text-muted-foreground">{currentStep}</p>
               </div>
-              
+
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Progress</span>
@@ -242,10 +268,19 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
                 </div>
                 <Progress value={generationProgress} className="h-2" />
               </div>
-              
+
               <p className="text-xs text-center text-muted-foreground">
                 This process may take several minutes. Please don't close this window.
               </p>
+              {generatedVideo && (
+                <div className="mt-4">
+                  <video src={generatedVideo} controls className="w-full rounded-lg" />
+                  <p className="text-xs text-center mt-2">Your generated avatar video</p>
+                </div>
+              )}
+              {videoError && (
+                <div className="mt-4 text-red-500 text-center text-xs">{videoError}</div>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -256,8 +291,8 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
         <Button variant="outline" onClick={onPrev} disabled={isGenerating}>
           Back to Avatar
         </Button>
-        <Button 
-          onClick={handleGenerate} 
+        <Button
+          onClick={handleGenerate}
           disabled={isGenerating}
           size="lg"
           className="min-w-[160px]"
