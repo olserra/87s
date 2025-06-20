@@ -68,15 +68,15 @@ const backgrounds = [
 ];
 
 export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps) {
-  const [selectedAvatar, setSelectedAvatar] = useState(data.avatarType || 'none');
+  const [selectedAvatar, setSelectedAvatar] = useState<'none' | 'male' | 'female' | 'custom'>(data.avatarType || 'none');
   const [selectedBackground, setSelectedBackground] = useState('studio');
 
   const handleAvatarSelect = (avatarId: string) => {
-    setSelectedAvatar(avatarId);
-    updateData({ avatarType: avatarId as any });
+    setSelectedAvatar(avatarId as 'none' | 'male' | 'female' | 'custom');
+    updateData({ avatarType: avatarId as 'none' | 'male' | 'female' | 'custom' });
   };
 
-  const canProceed = selectedAvatar !== '';
+  const canProceed = selectedAvatar !== 'none';
 
   return (
     <div className="space-y-6">
@@ -100,9 +100,8 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
                   <div key={option.id} className="space-y-2">
                     <Label
                       htmlFor={option.id}
-                      className={`cursor-pointer block p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
-                        selectedAvatar === option.id ? 'ring-2 ring-primary border-primary' : ''
-                      }`}
+                      className={`cursor-pointer block p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${selectedAvatar === option.id ? 'ring-2 ring-primary border-primary' : ''
+                        }`}
                     >
                       <div className="flex items-center space-x-2 mb-3">
                         <RadioGroupItem value={option.id} id={option.id} />
@@ -111,7 +110,7 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
                           <Badge variant="secondary" className="text-xs">Free</Badge>
                         )}
                       </div>
-                      
+
                       <div className="space-y-3">
                         {option.preview ? (
                           <div className="aspect-square rounded-lg bg-muted overflow-hidden">
@@ -126,7 +125,7 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
                             <option.icon className="h-12 w-12 text-muted-foreground" />
                           </div>
                         )}
-                        
+
                         <p className="text-xs text-muted-foreground">
                           {option.description}
                         </p>
@@ -146,9 +145,8 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
                 {backgrounds.map((bg) => (
                   <Card
                     key={bg.id}
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
-                      selectedBackground === bg.id ? 'ring-2 ring-primary' : ''
-                    }`}
+                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedBackground === bg.id ? 'ring-2 ring-primary' : ''
+                      }`}
                     onClick={() => setSelectedBackground(bg.id)}
                   >
                     <CardContent className="p-4">
@@ -160,7 +158,7 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        
+
                         <div className="space-y-1">
                           <div className="flex items-center justify-between">
                             <h4 className="font-medium text-sm">{bg.name}</h4>

@@ -79,7 +79,7 @@ const elevenLabsVoiceMap: Record<string, string> = {
 };
 
 export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) {
-  const [selectedVoice, setSelectedVoice] = useState(data.voiceType || 'default');
+  const [selectedVoice, setSelectedVoice] = useState<'default' | 'male' | 'female' | 'custom'>(data.voiceType || 'default');
   const [playingVoice, setPlayingVoice] = useState<string | null>(null);
   const [voiceSettings, setVoiceSettings] = useState({
     speed: [1.0],
@@ -91,8 +91,8 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleVoiceSelect = (voiceId: string) => {
-    setSelectedVoice(voiceId);
-    updateData({ voiceType: voiceId });
+    setSelectedVoice(voiceId as 'default' | 'male' | 'female' | 'custom');
+    updateData({ voiceType: voiceId as 'default' | 'male' | 'female' | 'custom' });
   };
 
   const handlePlayPreview = async (voiceId: string) => {
@@ -133,7 +133,7 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
     }
   };
 
-  const canProceed = selectedVoice !== '';
+  const canProceed = selectedVoice !== 'default';
 
   return (
     <div className="space-y-6">

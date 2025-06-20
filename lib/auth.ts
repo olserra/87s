@@ -1,7 +1,10 @@
 import { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from './prisma';
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
       server: {
@@ -31,7 +34,7 @@ export const authOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       console.log('Session callback:', { session, token });
       if (session?.user && token?.sub) {
-        session.user.id = token.sub;
+        (session.user as typeof session.user & { id: string }).id = token.sub as string;
       }
       return session;
     },

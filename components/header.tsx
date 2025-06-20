@@ -18,7 +18,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2 cursor-pointer">
               <div className="relative">
                 <Mic className="h-8 w-8 text-primary" />
                 <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-purple-500" />
@@ -31,19 +31,19 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-6">
             <Link
               href="/features"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             >
               Features
             </Link>
             <Link
               href="/pricing"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             >
               Pricing
             </Link>
             <Link
               href="/docs"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             >
               Docs
             </Link>
@@ -87,21 +87,21 @@ export function Header() {
             <nav className="flex flex-col space-y-3">
               <Link
                 href="/features"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Features
               </Link>
               <Link
                 href="/pricing"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Pricing
               </Link>
               <Link
                 href="/docs"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Docs

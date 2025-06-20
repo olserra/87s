@@ -71,9 +71,8 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
     if (data.avatarType !== 'none') {
       setCurrentStep('Generating avatar video...');
       try {
-        // TODO: Replace with real imageUrl and audioUrl from user data or previous steps
-        const imageUrl = data.avatarImageUrl || 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop';
-        const audioUrl = data.audioUrl || 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+        const imageUrl = 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop';
+        const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
         const res = await fetch('/api/avatarify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

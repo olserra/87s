@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, FileText, Wand2 } from 'lucide-react';
+import { Sparkles, FileText, Wand } from 'lucide-react';
 import type { CreatePodcastData } from '@/lib/types';
 
 interface ScriptStepProps {
@@ -115,7 +115,7 @@ Let me elaborate on each of these points...
 In conclusion, this topic demonstrates the importance of taking a holistic approach. The connections between different aspects become clear when we step back and look at the bigger picture.
 
 Thank you for listening to today's episode. I hope you found these insights valuable and actionable.`;
-      
+
       updateData({ script: generatedScript });
       setIsGenerating(false);
     }, 2000);
@@ -187,9 +187,8 @@ Thank you for listening to today's episode. I hope you found these insights valu
                 {templates.map((template) => (
                   <Card
                     key={template.id}
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
-                      selectedTemplate === template.id ? 'ring-2 ring-primary' : ''
-                    }`}
+                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedTemplate === template.id ? 'ring-2 ring-primary' : ''
+                      }`}
                     onClick={() => handleUseTemplate(template)}
                   >
                     <CardHeader className="pb-3">
@@ -206,7 +205,7 @@ Thank you for listening to today's episode. I hope you found these insights valu
                   </Card>
                 ))}
               </div>
-              
+
               {selectedTemplate && (
                 <div className="space-y-2">
                   <Label>Template Preview</Label>
@@ -223,12 +222,12 @@ Thank you for listening to today's episode. I hope you found these insights valu
             <TabsContent value="generate" className="space-y-4">
               <div className="text-center space-y-4">
                 <div className="p-6 border border-dashed rounded-lg">
-                  <Wand2 className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <Wand className="h-12 w-12 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">AI Script Generation</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     Generate a complete podcast script based on your title and description
                   </p>
-                  <Button 
+                  <Button
                     onClick={handleGenerateScript}
                     disabled={!data.title || isGenerating}
                     className="min-w-[140px]"
@@ -247,7 +246,7 @@ Thank you for listening to today's episode. I hope you found these insights valu
                   </Button>
                 </div>
               </div>
-              
+
               {data.script && (
                 <div className="space-y-2">
                   <Label>Generated Script</Label>
