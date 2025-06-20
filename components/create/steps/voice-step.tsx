@@ -114,6 +114,9 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
         body: JSON.stringify({
           text: 'This is a sample preview of the selected AI voice.',
           voice: elevenLabsVoiceMap[voiceId] || elevenLabsVoiceMap['default'],
+          speed: voiceSettings.speed[0],
+          pitch: voiceSettings.pitch[0],
+          stability: voiceSettings.stability[0],
         }),
       });
       if (!res.ok) throw new Error('Failed to fetch audio');

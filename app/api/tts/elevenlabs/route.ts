@@ -4,7 +4,7 @@ export const runtime = 'edge';
 
 export async function POST(req: Request) {
   try {
-    const { text, voice, speed = 1.0, pitch = 1.0 } = await req.json();
+    const { text, voice, speed = 1.0, pitch, stability = 0.5 } = await req.json();
     if (!text || !voice) {
       return NextResponse.json({ error: 'Missing text or voice parameter' }, { status: 400 });
     }
@@ -12,6 +12,11 @@ export async function POST(req: Request) {
     const apiKey = process.env.ELEVENLABS_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: 'Missing ElevenLabs API key' }, { status: 500 });
+    }
+
+    // Log pitch for future compatibility (not used by ElevenLabs as of now)
+    if (typeof pitch !== 'undefined') {
+      console.log('Received pitch (not used by ElevenLabs):', pitch);
     }
 
     // ElevenLabs API endpoint for TTS
@@ -26,10 +31,11 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         text,
         voice_settings: {
-          stability: 0.5,
+          stability: Number(stability),
           similarity_boost: 0.5,
           style: 0.0,
           use_speaker_boost: true,
+          speed: Number(speed),
         },
       }),
     });
