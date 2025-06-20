@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { 
-  Mic, 
-  Video, 
-  Sparkles, 
-  Zap, 
-  Globe, 
+import {
+  Mic,
+  Video,
+  Sparkles,
+  Zap,
+  Globe,
   Shield,
   Clock,
-  TrendingUp 
+  TrendingUp
 } from 'lucide-react';
 
 const features = [
@@ -74,7 +74,7 @@ export function FeaturesSection() {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {features.map((feature, index) => (
           <motion.div
             key={feature.title}

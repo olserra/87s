@@ -60,23 +60,25 @@ export function Header() {
 
           <div className="flex items-center space-x-4">
             <ModeToggle />
-            {hasSession ? (
-              <div className="flex items-center space-x-2">
-                <Button asChild size="sm">
-                  <Link href="/dashboard">Dashboard</Link>
-                </Button>
-                <UserNav />
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" asChild size="sm">
-                  <Link href="/auth/signin">Sign In</Link>
-                </Button>
-                <Button asChild size="sm">
-                  <Link href="/auth/signin">Get Started</Link>
-                </Button>
-              </div>
-            )}
+            <div className="hidden md:flex items-center space-x-4">
+              {hasSession ? (
+                <div className="flex items-center space-x-2">
+                  <Button asChild size="sm">
+                    <Link href="/dashboard">Dashboard</Link>
+                  </Button>
+                  <UserNav />
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" asChild size="sm">
+                    <Link href="/auth/signin">Sign In</Link>
+                  </Button>
+                  <Button asChild size="sm">
+                    <Link href="/auth/signin">Get Started</Link>
+                  </Button>
+                </div>
+              )}
+            </div>
 
             {/* Mobile menu button */}
             <Button
@@ -116,6 +118,28 @@ export function Header() {
                 Docs
               </Link>
             </nav>
+            <div className="mt-4 pt-4 border-t border-border/50">
+              {hasSession ? (
+                <div className="flex flex-col space-y-2">
+                  <Button asChild>
+                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+                  </Button>
+                  <div className="flex items-center justify-between">
+                    <span>{session?.user?.email}</span>
+                    <UserNav />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col space-y-2">
+                  <Button variant="ghost" asChild>
+                    <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+                  </Button>
+                  <Button asChild>
+                    <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

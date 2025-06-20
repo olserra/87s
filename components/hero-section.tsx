@@ -19,15 +19,15 @@ export function HeroSection() {
             <Sparkles className="h-4 w-4" />
             <span>AI-Powered Podcast Creation</span>
           </div>
-          
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
             Create Professional
             <br />
             <span className="gradient-text">Podcasts with AI</span>
           </h1>
-          
+
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Transform your ideas into engaging podcasts with AI-powered voice synthesis 
+            Transform your ideas into engaging podcasts with AI-powered voice synthesis
             and avatar generation. No expensive equipment or editing skills required.
           </p>
         </motion.div>
@@ -44,7 +44,7 @@ export function HeroSection() {
               <Play className="ml-2 h-4 w-4" />
             </Link>
           </Button>
-          
+
           <Button variant="outline" size="lg" className="h-12 px-8">
             Watch Demo
             <Video className="ml-2 h-4 w-4" />
@@ -70,7 +70,7 @@ export function HeroSection() {
                     Natural-sounding voices powered by advanced AI models
                   </p>
                 </div>
-                
+
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 text-primary rounded-full mb-4">
                     <Video className="h-6 w-6" />
@@ -80,7 +80,7 @@ export function HeroSection() {
                     Realistic avatars that bring your podcasts to life
                   </p>
                 </div>
-                
+
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 text-primary rounded-full mb-4">
                     <Sparkles className="h-6 w-6" />

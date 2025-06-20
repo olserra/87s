@@ -22,8 +22,8 @@ export function DashboardHeader() {
           <div className="flex items-center space-x-4">
             <Button asChild>
               <Link href="/create">
-                <Plus className="mr-2 h-4 w-4" />
-                Create Podcast
+                <Plus className="h-4 w-4 md:mr-2" />
+                <span className="hidden md:inline">Create Podcast</span>
               </Link>
             </Button>
             <ModeToggle />

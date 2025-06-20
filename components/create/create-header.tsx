@@ -13,20 +13,20 @@ export function CreateHeader() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/dashboard">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Dashboard
+              <Link href="/dashboard" className="flex items-center">
+                <ArrowLeft className="h-4 w-4 md:mr-2" />
+                <span className="hidden md:inline">Back to Dashboard</span>
               </Link>
             </Button>
-            
-            <div className="h-6 w-px bg-border" />
-            
+
+            <div className="h-6 w-px bg-border hidden md:block" />
+
             <Link href="/" className="flex items-center space-x-2">
               <div className="relative">
                 <Mic className="h-6 w-6 text-primary" />
                 <Sparkles className="absolute -top-1 -right-1 h-3 w-3 text-purple-500" />
               </div>
-              <span className="text-lg font-bold gradient-text">PodcastAI</span>
+              <span className="hidden sm:inline text-lg font-bold gradient-text">PodcastAI</span>
             </Link>
           </div>
 

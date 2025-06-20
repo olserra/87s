@@ -85,23 +85,23 @@ export function CreateWorkflow() {
       </Card>
 
       {/* Steps Navigation */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-2">
         {steps.map((step, index) => (
           <div
             key={step.id}
             className={cn(
               "relative p-4 rounded-lg border transition-all duration-300",
-              index < currentStep ? "bg-primary/10 border-primary/20" : 
-              index === currentStep ? "bg-card border-primary" : 
-              "bg-muted/50 border-border"
+              index < currentStep ? "bg-primary/10 border-primary/20" :
+                index === currentStep ? "bg-card border-primary" :
+                  "bg-muted/50 border-border"
             )}
           >
             <div className="flex items-center space-x-3">
               <div className={cn(
                 "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
                 index < currentStep ? "bg-primary text-primary-foreground" :
-                index === currentStep ? "bg-primary text-primary-foreground" :
-                "bg-muted-foreground/20 text-muted-foreground"
+                  index === currentStep ? "bg-primary text-primary-foreground" :
+                    "bg-muted-foreground/20 text-muted-foreground"
               )}>
                 {index < currentStep ? (
                   <Check className="h-4 w-4" />
@@ -114,9 +114,12 @@ export function CreateWorkflow() {
                 <p className="text-xs text-muted-foreground truncate">{step.description}</p>
               </div>
             </div>
-            
+
             {index < steps.length - 1 && (
               <ChevronRight className="absolute -right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hidden md:block" />
+            )}
+            {index < steps.length - 1 && (
+              <div className="absolute left-1/2 -bottom-2 -translate-x-1/2 h-2 w-px bg-border md:hidden" />
             )}
           </div>
         ))}
