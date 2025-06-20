@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,15 @@ import { cn } from '@/lib/utils';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = useSession();
+  const [hasSession, setHasSession] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('session_token')) {
+      setHasSession(true);
+    } else {
+      setHasSession(false);
+    }
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 glass border-b">
@@ -51,7 +60,7 @@ export function Header() {
 
           <div className="flex items-center space-x-4">
             <ModeToggle />
-            {session ? (
+            {hasSession ? (
               <div className="flex items-center space-x-2">
                 <Button asChild size="sm">
                   <Link href="/dashboard">Dashboard</Link>
