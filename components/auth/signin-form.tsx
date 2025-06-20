@@ -18,7 +18,7 @@ export function SignInForm() {
     setIsLoading(true);
 
     try {
-      const result = await signIn('email', {
+      const result = await signIn('credentials', {
         email,
         redirect: false,
       });
@@ -65,12 +65,12 @@ export function SignInForm() {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending Magic Link...
+                Signing In...
               </>
             ) : (
               <>
                 <Mail className="mr-2 h-4 w-4" />
-                Send Magic Link
+                Sign In
               </>
             )}
           </Button>
