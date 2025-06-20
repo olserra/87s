@@ -224,8 +224,8 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
                   <Slider
                     value={voiceSettings.speed}
                     onValueChange={(value) => setVoiceSettings(prev => ({ ...prev, speed: value }))}
-                    max={2}
-                    min={0.5}
+                    max={1.2}
+                    min={0.7}
                     step={0.1}
                     className="w-full"
                   />

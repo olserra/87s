@@ -4,9 +4,20 @@ export const runtime = 'edge';
 
 export async function POST(req: Request) {
   try {
-    const { text, voice, speed = 1.0, pitch, stability = 0.5 } = await req.json();
+    const body = await req.json();
+    console.log('TTS API received body:', body);
+    const { text, voice, speed = 1.0, pitch, stability = 0.5 } = body;
     if (!text || !voice) {
       return NextResponse.json({ error: 'Missing text or voice parameter' }, { status: 400 });
+    }
+
+    let clampedSpeed = Number(speed);
+    if (clampedSpeed < 0.7) {
+      console.warn(`Speed value ${clampedSpeed} is below ElevenLabs minimum. Clamping to 0.7.`);
+      clampedSpeed = 0.7;
+    } else if (clampedSpeed > 1.2) {
+      console.warn(`Speed value ${clampedSpeed} is above ElevenLabs maximum. Clamping to 1.2.`);
+      clampedSpeed = 1.2;
     }
 
     const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -35,13 +46,14 @@ export async function POST(req: Request) {
           similarity_boost: 0.5,
           style: 0.0,
           use_speaker_boost: true,
-          speed: Number(speed),
+          speed: clampedSpeed,
         },
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
+      console.error('ElevenLabs API error:', error);
       return NextResponse.json({ error }, { status: response.status });
     }
 
@@ -53,6 +65,7 @@ export async function POST(req: Request) {
       },
     });
   } catch (err: any) {
+    console.error('TTS API error:', err);
     return NextResponse.json({ error: err.message || 'Unknown error' }, { status: 500 });
   }
 }
