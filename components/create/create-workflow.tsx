@@ -64,19 +64,19 @@ export function CreateWorkflow() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 px-2 sm:px-0">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-3xl font-bold gradient-text">Create Your Podcast</h1>
-        <p className="text-muted-foreground">
+      <div className="text-center space-y-2 sm:space-y-4">
+        <h1 className="text-2xl sm:text-3xl font-bold gradient-text">Create Your Podcast</h1>
+        <p className="text-muted-foreground text-sm sm:text-base">
           Follow these steps to create your AI-powered podcast
         </p>
       </div>
 
       {/* Progress */}
-      <Card className="glass p-6">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between text-sm">
+      <Card className="glass p-4 sm:p-6">
+        <div className="space-y-2 sm:space-y-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-xs sm:text-sm gap-1 sm:gap-0">
             <span className="text-muted-foreground">Progress</span>
             <span className="font-medium">{Math.round(progress)}% Complete</span>
           </div>
@@ -85,20 +85,20 @@ export function CreateWorkflow() {
       </Card>
 
       {/* Steps Navigation */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-2 sm:gap-x-4 gap-y-2">
         {steps.map((step, index) => (
           <div
             key={step.id}
             className={cn(
-              "relative p-4 rounded-lg border transition-all duration-300",
+              "relative p-3 sm:p-4 rounded-lg border transition-all duration-300",
               index < currentStep ? "bg-primary/10 border-primary/20" :
                 index === currentStep ? "bg-card border-primary" :
                   "bg-muted/50 border-border"
             )}
           >
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <div className={cn(
-                "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
+                "flex items-center justify-center w-8 h-8 rounded-full text-xs sm:text-sm font-medium",
                 index < currentStep ? "bg-primary text-primary-foreground" :
                   index === currentStep ? "bg-primary text-primary-foreground" :
                     "bg-muted-foreground/20 text-muted-foreground"
@@ -110,8 +110,8 @@ export function CreateWorkflow() {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-sm truncate">{step.title}</h3>
-                <p className="text-xs text-muted-foreground truncate">{step.description}</p>
+                <h3 className="font-medium text-xs sm:text-sm truncate">{step.title}</h3>
+                <p className="text-[10px] sm:text-xs text-muted-foreground truncate">{step.description}</p>
               </div>
             </div>
 

@@ -118,8 +118,8 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="glass">
+    <div className="space-y-4 sm:space-y-6">
+      <Card className="glass p-3 sm:p-6">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <CheckCircle className="h-5 w-5" />
@@ -129,9 +129,9 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
             Review your podcast settings and generate your AI-powered content
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Summary */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold mb-2 flex items-center space-x-2">
@@ -251,8 +251,8 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
 
       {/* Generation Progress */}
       {isGenerating && (
-        <Card className="glass">
-          <CardContent className="p-6">
+        <Card className="glass p-3 sm:p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="space-y-4">
               <div className="text-center space-y-2">
                 <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
@@ -286,7 +286,7 @@ export function ReviewStep({ data, onPrev }: ReviewStepProps) {
       )}
 
       {/* Navigation */}
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0">
         <Button variant="outline" onClick={onPrev} disabled={isGenerating}>
           Back to Avatar
         </Button>

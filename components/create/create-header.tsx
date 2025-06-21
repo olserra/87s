@@ -9,9 +9,9 @@ import { ArrowLeft, Mic, Sparkles } from 'lucide-react';
 export function CreateHeader() {
   return (
     <header className="sticky top-0 z-50 glass border-b">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-4">
+      <div className="container mx-auto px-2 sm:px-4">
+        <div className="flex flex-row h-16 items-center justify-between">
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-1">
             <Button variant="ghost" size="sm" asChild>
               <Link href="/dashboard" className="flex items-center">
                 <ArrowLeft className="h-4 w-4 md:mr-2" />
@@ -30,7 +30,7 @@ export function CreateHeader() {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-none">
             <ModeToggle />
             <UserNav />
           </div>

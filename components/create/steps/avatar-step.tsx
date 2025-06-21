@@ -79,8 +79,8 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
   const canProceed = selectedAvatar !== 'none';
 
   return (
-    <div className="space-y-6">
-      <Card className="glass">
+    <div className="space-y-4 sm:space-y-6">
+      <Card className="glass p-3 sm:p-6">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Video className="h-5 w-5" />
@@ -90,18 +90,17 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
             Choose your podcast's visual style and avatar presentation
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Avatar Selection */}
           <div className="space-y-4">
             <h3 className="font-semibold">Avatar Style</h3>
             <RadioGroup value={selectedAvatar} onValueChange={handleAvatarSelect}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 {avatarOptions.map((option) => (
                   <div key={option.id} className="space-y-2">
                     <Label
                       htmlFor={option.id}
-                      className={`cursor-pointer block p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${selectedAvatar === option.id ? 'ring-2 ring-primary border-primary' : ''
-                        }`}
+                      className={`cursor-pointer block p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${selectedAvatar === option.id ? 'ring-2 ring-primary border-primary' : ''}`}
                     >
                       <div className="flex items-center space-x-2 mb-3">
                         <RadioGroupItem value={option.id} id={option.id} />
@@ -141,12 +140,11 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
           {selectedAvatar !== 'none' && (
             <div className="space-y-4">
               <h3 className="font-semibold">Background Setting</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 {backgrounds.map((bg) => (
                   <Card
                     key={bg.id}
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedBackground === bg.id ? 'ring-2 ring-primary' : ''
-                      }`}
+                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedBackground === bg.id ? 'ring-2 ring-primary' : ''}`}
                     onClick={() => setSelectedBackground(bg.id)}
                   >
                     <CardContent className="p-4">
@@ -212,7 +210,7 @@ export function AvatarStep({ data, updateData, onNext, onPrev }: AvatarStepProps
       </Card>
 
       {/* Navigation */}
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0">
         <Button variant="outline" onClick={onPrev}>
           Back to Voice
         </Button>

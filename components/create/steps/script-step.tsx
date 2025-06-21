@@ -124,8 +124,8 @@ Thank you for listening to today's episode. I hope you found these insights valu
   const canProceed = data.title && data.script && data.script.trim().length > 50;
 
   return (
-    <div className="space-y-6">
-      <Card className="glass">
+    <div className="space-y-4 sm:space-y-6">
+      <Card className="glass p-3 sm:p-6">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <FileText className="h-5 w-5" />
@@ -135,9 +135,9 @@ Thank you for listening to today's episode. I hope you found these insights valu
             Create your podcast content by writing manually, using a template, or generating with AI
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Basic Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="title">Podcast Title</Label>
               <Input
@@ -160,10 +160,10 @@ Thank you for listening to today's episode. I hope you found these insights valu
 
           {/* Script Creation */}
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="manual">Write Manually</TabsTrigger>
-              <TabsTrigger value="template">Use Template</TabsTrigger>
-              <TabsTrigger value="generate">AI Generate</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 text-xs sm:text-sm">
+              <TabsTrigger value="manual">Manually</TabsTrigger>
+              <TabsTrigger value="template">Template</TabsTrigger>
+              <TabsTrigger value="generate"><Wand className="h-4 w-4 mr-1 inline" />AI</TabsTrigger>
             </TabsList>
 
             <TabsContent value="manual" className="space-y-4">
@@ -172,7 +172,7 @@ Thank you for listening to today's episode. I hope you found these insights valu
                 <Textarea
                   id="script"
                   placeholder="Write your podcast script here..."
-                  className="min-h-[300px] resize-none"
+                  className="min-h-[200px] sm:min-h-[300px] resize-none"
                   value={data.script || ''}
                   onChange={(e) => updateData({ script: e.target.value })}
                 />
@@ -183,12 +183,11 @@ Thank you for listening to today's episode. I hope you found these insights valu
             </TabsContent>
 
             <TabsContent value="template" className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {templates.map((template) => (
                   <Card
                     key={template.id}
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedTemplate === template.id ? 'ring-2 ring-primary' : ''
-                      }`}
+                    className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedTemplate === template.id ? 'ring-2 ring-primary' : ''}`}
                     onClick={() => handleUseTemplate(template)}
                   >
                     <CardHeader className="pb-3">
@@ -210,7 +209,7 @@ Thank you for listening to today's episode. I hope you found these insights valu
                 <div className="space-y-2">
                   <Label>Template Preview</Label>
                   <Textarea
-                    className="min-h-[200px] resize-none"
+                    className="min-h-[120px] sm:min-h-[200px] resize-none"
                     value={data.script || ''}
                     onChange={(e) => updateData({ script: e.target.value })}
                     placeholder="Template will appear here..."
@@ -221,16 +220,16 @@ Thank you for listening to today's episode. I hope you found these insights valu
 
             <TabsContent value="generate" className="space-y-4">
               <div className="text-center space-y-4">
-                <div className="p-6 border border-dashed rounded-lg">
-                  <Wand className="h-12 w-12 text-primary mx-auto mb-4" />
+                <div className="p-4 sm:p-6 border border-dashed rounded-lg">
+                  <Wand className="h-10 w-10 sm:h-12 sm:w-12 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">AI Script Generation</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                     Generate a complete podcast script based on your title and description
                   </p>
                   <Button
                     onClick={handleGenerateScript}
                     disabled={!data.title || isGenerating}
-                    className="min-w-[140px]"
+                    className="min-w-[120px] sm:min-w-[140px]"
                   >
                     {isGenerating ? (
                       <>
@@ -251,7 +250,7 @@ Thank you for listening to today's episode. I hope you found these insights valu
                 <div className="space-y-2">
                   <Label>Generated Script</Label>
                   <Textarea
-                    className="min-h-[300px] resize-none"
+                    className="min-h-[200px] sm:min-h-[300px] resize-none"
                     value={data.script}
                     onChange={(e) => updateData({ script: e.target.value })}
                   />
@@ -263,8 +262,8 @@ Thank you for listening to today's episode. I hope you found these insights valu
       </Card>
 
       {/* Continue Button */}
-      <div className="flex justify-end">
-        <Button onClick={onNext} disabled={!canProceed} size="lg">
+      <div className="flex justify-center">
+        <Button onClick={onNext} disabled={!canProceed} className="w-48">
           Continue to Voice Selection
         </Button>
       </div>

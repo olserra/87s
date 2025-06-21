@@ -71,9 +71,9 @@ const voices = [
 
 // Map local voice IDs to ElevenLabs voice IDs (replace with real IDs as needed)
 const elevenLabsVoiceMap: Record<string, string> = {
-  default: 'EXAVITQu4vr4xnSDxMaL', // Example ElevenLabs voice ID for "Rachel"
+  default: 'pNInz6obpgDQGcFmaJgB', // Use "Bella" (female) for Alex for now, or replace with a true neutral/male if available
   'male-1': 'TxGEqnHWrfWFTfGW9XjX', // Example for "Domi"
-  'female-1': 'pNInz6obpgDQGcFmaJgB', // Example for "Bella"
+  'female-1': 'pNInz6obpgDQGcFmaJgB', // "Bella" (female)
   'male-2': 'ErXwobaYiN019PkySvjV', // Example for "Antoni"
   'female-2': 'MF3mGyEYCl7XYWbV9V6O', // Example for "Elli"
 };
@@ -136,11 +136,11 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
     }
   };
 
-  const canProceed = selectedVoice !== 'default';
+  const canProceed = !!selectedVoice;
 
   return (
-    <div className="space-y-6">
-      <Card className="glass">
+    <div className="space-y-4 sm:space-y-6">
+      <Card className="glass p-3 sm:p-6">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Volume2 className="h-5 w-5" />
@@ -150,14 +150,13 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
             Choose the perfect AI voice for your podcast and customize its settings
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Voice Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {voices.map((voice) => (
               <Card
                 key={voice.id}
-                className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedVoice === voice.id ? 'ring-2 ring-primary' : ''
-                  } ${voice.premium ? 'border-primary/50' : ''}`}
+                className={`cursor-pointer transition-all duration-200 hover:shadow-md ${selectedVoice === voice.id ? 'ring-2 ring-primary' : ''} ${voice.premium ? 'border-primary/50' : ''}`}
                 onClick={() => handleVoiceSelect(voice.id)}
               >
                 <CardHeader className="pb-3">
@@ -217,8 +216,8 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
                 <span>Voice Settings</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <CardContent className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 <div className="space-y-2">
                   <Label>Speed</Label>
                   <Slider
@@ -300,11 +299,11 @@ export function VoiceStep({ data, updateData, onNext, onPrev }: VoiceStepProps) 
       </Card>
 
       {/* Navigation */}
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onPrev}>
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-2">
+        <Button variant="outline" onClick={onPrev} className="w-48">
           Back to Script
         </Button>
-        <Button onClick={onNext} disabled={!canProceed} size="lg">
+        <Button onClick={onNext} disabled={!canProceed} className="w-48">
           Continue to Avatar
         </Button>
       </div>
